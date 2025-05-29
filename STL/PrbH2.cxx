@@ -22,8 +22,7 @@ int main()
         v.push_back(c);
     }
 
-    
-    int Q;
+        int Q;
     cin >> Q;
 
     while (Q--)
