@@ -3,20 +3,7 @@ using namespace std;
 
 typedef long long ll;
 
-int main()
-{
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-    int N;
-    cin >> N;
-
-    vector<int> v(N);
-
-    for (int i = 0; i < N; i++)
-    {
-        cin >> v[i];
-    }
+/*
 
     int total = 0;
     multiset<int> st;
@@ -62,5 +49,50 @@ int main()
         }
     }
 
+*/
+
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    ll N;
+    cin >> N;
+
+    vector<ll> v(N);
+    unordered_map<ll, ll> mpp;
+    vector<ll> res;
+
+    ll total = 0;
+
+    for (ll i = 0; i < N; i++)
+    {
+        cin >> v[i];
+        total += v[i];
+        mpp[v[i]]++;
+    }
+
+    for (ll i = 0; i < N; i++)
+    {
+
+        if ((total - v[i]) % 2 != 0)
+            continue;
+
+        ll target = (total - v[i]) / 2;
+
+        mpp[v[i]]--;
+
+        if (mpp[target] > 0)
+        {
+            res.push_back(i + 1);
+        }
+
+        mpp[v[i]]++;
+    }
+
+    cout << res.size() << endl;
+    for (auto a : res)
+        cout << a << " ";
+    cout << endl;
     return 0;
 }
