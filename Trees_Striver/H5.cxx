@@ -11,57 +11,46 @@ struct TreeNode
 
     TreeNode(int val) : data(val), left(nullptr), right(nullptr) {}
 };
-
-int getHeight(TreeNode *root)
+void markParents(TreeNode *root, unordered_map<TreeNode *, TreeNode *> &mpp)
 {
-
-    if (root == nullptr)
-        return 0;
-    int lh = getHeight(root->left);
-    int rh = getHeight(root->right);
-
-    return max(lh, rh) + 1;
-}
-
-void f1(unordered_map<TreeNode *, TreeNode *> &mp, TreeNode *root)
-{
-
     queue<TreeNode *> q;
 
     q.push(root);
 
     while (!q.empty())
     {
-
-        TreeNode *p = q.front();
+        auto a = q.front();
         q.pop();
 
-        if (p->left)
+        if (a->left)
         {
-            mp[p->left] = p;
-            q.push(p->left);
+            mpp[a->left] = a;
+            q.push(a->left);
         }
-        if (p->right)
+        if (a->right)
         {
-            mp[p->right] = p;
-            q.push(p->right);
+            mpp[a->right] = a;
+            q.push(a->right);
         }
     }
 }
 
 vector<int> distanceK(TreeNode *root, TreeNode *target, int k)
 {
-
     unordered_map<TreeNode *, TreeNode *> mp;
-    f1(mp, root);
+    markParents(root, mp);
 
-    vector<int> v;
+    for (auto a : mp)
+    {
+        cout << a.first->val << "->" << a.second->val << endl;
+    }
+
+    vector<int> ans;
     unordered_map<TreeNode *, bool> vis;
     vis[target] = true;
-
     queue<TreeNode *> q;
-
     q.push(target);
+    // int currlevel = 1;
 
     while (!q.empty())
     {
@@ -69,7 +58,6 @@ vector<int> distanceK(TreeNode *root, TreeNode *target, int k)
 
         if (k-- == 0)
         {
-
             break;
         }
 
@@ -92,26 +80,20 @@ vector<int> distanceK(TreeNode *root, TreeNode *target, int k)
 
             if (mp[a] && !vis[mp[a]])
             {
-                q.push(mp[a]);
                 vis[mp[a]] = true;
+                q.push(mp[a]);
             }
         }
     }
 
     while (!q.empty())
     {
-        v.push_back(q.front()->data);
+        ans.push_back(q.front()->val);
         q.pop();
     }
 
-    for (auto a : v)
-    {
-        cout << a << " ";
-    }
-
-    return {};
+    return ans;
 }
-
 int main()
 {
     TreeNode *root = new TreeNode(3);
