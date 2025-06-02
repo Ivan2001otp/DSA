@@ -40,10 +40,7 @@ vector<int> distanceK(TreeNode *root, TreeNode *target, int k)
     unordered_map<TreeNode *, TreeNode *> mp;
     markParents(root, mp);
 
-    for (auto a : mp)
-    {
-        cout << a.first->val << "->" << a.second->val << endl;
-    }
+   
 
     vector<int> ans;
     unordered_map<TreeNode *, bool> vis;
@@ -88,7 +85,7 @@ vector<int> distanceK(TreeNode *root, TreeNode *target, int k)
 
     while (!q.empty())
     {
-        ans.push_back(q.front()->val);
+        ans.push_back(q.front()->data);
         q.pop();
     }
 
