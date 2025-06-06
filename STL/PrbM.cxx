@@ -34,6 +34,7 @@ int main()
 
         int pos1 = lower_bound(v.begin(), v.end(), x) - v.begin();
         int pos2 = upper_bound(v.begin(), v.end(), x) - v.begin();
+        cout << "pos2 : " << pos2 << endl;
 
         cout << pos1 << " " << v.size() - pos2 << endl;
     }

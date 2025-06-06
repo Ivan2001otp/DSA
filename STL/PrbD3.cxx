@@ -3,7 +3,6 @@ using namespace std;
 
 typedef long long ll;
 
-
 int main()
 {
     ios_base::sync_with_stdio(0);
@@ -16,15 +15,15 @@ int main()
     a = {4, 8, 2, 6, 2};
     b = {4, 5, 4, 1, 3};
 
-    for (ll i = 0; i < N; i++)
-    {
-        cin >> a[i];
-    }
+    // for (ll i = 0; i < N; i++)
+    // {
+    //     cin >> a[i];
+    // }
 
-    for (ll i = 0; i < N; i++)
-    {
-        cin >> b[i];
-    }
+    // for (ll i = 0; i < N; i++)
+    // {
+    //     cin >> b[i];
+    // }
 
     vector<ll> diff(N);
 
@@ -45,7 +44,7 @@ int main()
         }
 
         auto pos = upper_bound(diff.begin(), diff.end(), -diff[i]) - diff.begin();
-
+        cout << "for " << -diff[i] << " the pos is " << pos << endl;
         count += abs(pos - i);
     }
 
