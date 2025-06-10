@@ -2,16 +2,16 @@
 using namespace std;
 typedef long long ll;
 
-
 vector<bool> constructPrimeArr()
 {
-    vector<bool> prime(1002, true);
+    const int N = 1e5 + 1;
+    vector<bool> prime(N, true);
 
-    for (int i = 2; i * i <= 1002; i++)
+    for (int i = 2; i * i <= N; i++)
     {
         if (prime[i])
         {
-            for (int j = i * i; j <= 1002; j += i)
+            for (int j = i * i; j <= N; j += i)
             {
                 prime[j] = false;
             }
@@ -34,6 +34,7 @@ int main()
     while (true)
     {
         ans = (n * m) + 1;
+        // cout << "ans is " << ans << endl;
         if (!prime[ans])
         {
             cout << m << endl;
