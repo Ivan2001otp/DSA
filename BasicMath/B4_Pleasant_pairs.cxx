@@ -32,7 +32,7 @@ void solve()
             if (first_val * second_val == first_indx + second_indx)
             {
                 ans++;
-            }
+            } 
             else
             {
                 if (first_val * second_val > 2 * N)
