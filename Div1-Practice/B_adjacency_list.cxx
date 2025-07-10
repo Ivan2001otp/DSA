@@ -31,8 +31,6 @@ void solve()
         mp[i] = (v);
     }
 
-    cout << endl
-         << endl;
 
     for (int i = 0; i < N; i++)
     {
