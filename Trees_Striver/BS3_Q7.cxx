@@ -28,8 +28,8 @@ SubTree f(TreeNode* root, int &ans) {
 
         SubTree left = f(root->left, ans);
         SubTree right = f(root->right, ans);
+        
         SubTree curr;
-
         curr.sum = left.sum + right.sum + root->val;
         curr.min = min(root->val, left.min);
         curr.max = max(root->val, right.max);

@@ -1,36 +1,62 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
 
-void solve2()
+void solve()
 {
-    string S, T;
-    cin >> S >> T;
+    int N;
+    cin >> N;
 
-    unordered_map<char, int> mp;
-    for (int i = 0; i < T.size(); i++)
-    {
-        mp[i]++;
-    }
+    vector<int> v(N);
+    for (int i = 0; i < N; i++)
+        cin >> v[i];
 
-    for (int i = 1; i < S.size(); i++)
+    int maxi = -1e9, maxi2 = -1e9;
+
+    for (int i = 0; i < N; i++)
     {
-        if (S[i] - 'a' < 0)
+        if (v[i] > maxi)
         {
-            if (!mp[S[i - 1]])
-            {
-                cout << "No" << endl;
-                return;
-            }
+            maxi2 = maxi;
+            maxi = v[i];
+        }
+
+        if (v[i] > maxi2 && v[i] < maxi)
+        {
+            maxi2 = v[i];
         }
     }
-    cout << "Yes" << endl;
+
+    if (maxi2 == -1e9)
+    {
+        maxi2 = maxi;
+    }
+
+    for (int i = 0; i < N; i++)
+    {
+        if (v[i] == maxi)
+        {
+            v[i] = v[i] - maxi2;
+        }
+        else
+        {
+            v[i] = v[i] - maxi;
+        }
+    }
+
+    for (auto a : v)
+        cout << a << " ";
+    cout << endl;
     return;
 }
+
 int main()
 {
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while (t--)
     {
-        solve2();
+        solve();
     }
     return 0;
 }

@@ -34,6 +34,32 @@ vector<int> bfs(vector<vector<int>> &adj)
     return res;
 }
 
+vector<int> bfs2(vector<vector<int>>&adj) {
+    int V = adj.size();
+    int source = 0;
+
+    queue<int>q;
+    vector<bool>vis(V+1, false);
+    q.push(source);
+    vis[source]=1;
+
+    vector<int>res;
+
+    while(!q.empty()) {
+        int curr = q.front();
+        q.pop();
+
+        res.push_back(curr);
+
+        for(auto a : adj[curr]) {
+            if (!vis[a]) {
+                vis[a]=1;
+                q.push(a);
+            }
+        }
+    }
+}
+
 void solve()
 {
     vector<vector<int>> v = {{1, 2}, {0, 2, 3}, {0, 4}, {1, 4}, {2, 3}};

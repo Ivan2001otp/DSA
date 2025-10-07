@@ -15,7 +15,6 @@ string serialize(TreeNode* root) {
     if (!root)return "#,";
 
     string ans = "";
-
     queue<TreeNode*>q;
     q.push(root);
 
