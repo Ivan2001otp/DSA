@@ -2,30 +2,48 @@
 using namespace std;
 typedef long long ll;
 
-// bfs 
-bool detect(int source, vector<int> adj[], vector<bool> &vis)
+bool detect(int node, vector<int> adj[], vector<int> &vis)
 {
     queue<pair<int, int>> q;
-    vis[source] = 1;
+    q.push({node, -1});
 
-    q.push({source, -1});
+    vis[node] = 1;
 
     while (!q.empty())
     {
-        pair<int, int> p = q.front();
+        auto curr = q.front();
         q.pop();
 
-        int parent = p.second;
-        int adjacentnode = p.first;
+        int adjnode = curr.first;
+        int parent = curr.second;
 
-        for (auto neighbour : adj[adjacentnode])
+        for (auto neighbour : adj[adjnode])
         {
             if (!vis[neighbour])
             {
                 vis[neighbour] = 1;
-                q.push({neighbour, adjacentnode});
+                q.push({neighbour, adjnode});
             }
-            else if (parent != adjacentnode)
+            else if (neighbour != parent)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
+
+// bfs
+bool isCycle(int N, vector<int> adj[])
+{
+    vector<int> vis(N, 0);
+
+    for (int i = 0; i < N; i++)
+    {
+        if (!vis[i])
+        {
+            if (detect(i, adj, vis))
             {
                 return true;
             }
@@ -35,6 +53,40 @@ bool detect(int source, vector<int> adj[], vector<bool> &vis)
     return false;
 }
 
+class T1
+{
+public:
+    bool detectV2(int source, vector<int> adj[], vector<bool> &vis)
+    {
+        queue<pair<int, int>> q;
+        vis[source] = 1;
+        q.push({source, -1});
+
+        while (!q.empty())
+        {
+            pair<int, int> p = q.front();
+            q.pop();
+
+            int parent = p.second;
+            int adjacentnode = p.first;
+
+            for (auto neighbour : adj[adjacentnode])
+            {
+                if (!vis[neighbour])
+                {
+                    vis[neighbour] = 1;
+                    q.push({neighbour, adjacentnode});
+                }
+                else if (parent != adjacentnode)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+};
 
 bool isCycle(int N, vector<int> adj[])
 {

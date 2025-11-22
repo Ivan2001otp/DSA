@@ -2,6 +2,53 @@
 using namespace std;
 typedef long long ll;
 
+vector<int> shortestPathV2(int V, int E, vector<vector<int>> &edges)
+{
+    vector<vector<pair<int, int>>> adj(V + 1);
+
+    for(int i=0;i<edges.size();i++) {
+        adj[edges[i][0]].push_back({edges[i][1],edges[i][2]});
+    }
+
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>>pq;
+    vector<int>dist(V, 1e9);
+
+    dist[0] = 0;
+    pq.push({0,0});
+
+    while(! pq.empty()) {
+        int node = pq.top().first;
+        int currDist = pq.top().second;
+        pq.pop();
+
+        if (currDist > dist[node])continue;
+
+        for(auto &it : adj[node]) {
+            int v = it.first;
+            int wt = it.second;
+
+            if (wt + currDist < dist[v]) {
+                dist[v] = wt + currDist;
+                pq.push({v, dist[v]});    
+            }
+        }
+
+
+    }
+
+
+    for (int i = 0; i < dist.size(); i++)
+    {
+        if (dist[i] == 1e9)
+        {
+            dist[i] = -1;
+        }
+        cout << dist[i] << " ";
+    }
+
+    return {};
+}
+
 vector<int> shortestPath(int V, int E, vector<vector<int>> &edges)
 {
     // code here

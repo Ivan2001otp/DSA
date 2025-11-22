@@ -4,7 +4,6 @@ typedef long long ll;
 // DSU - to find whether the nodes belong to the same component or not.
 
 
-public:
     Node* cloneGraph(Node* node) {
 
        if (node==nullptr) {
@@ -17,9 +16,9 @@ public:
        }
 
        return dfs(node, mp);
-    }
-};
-*/
+    };
+
+
 
 
 class DisjointSet {

@@ -53,7 +53,7 @@ int findTheCity(int n, vector<vector<int>> &edges, int dt)
     return res;
 }
 
-int dijkshtra(int n, vector<pair<int, int>> graph[], int src, int dt)
+int dijkshtraV2(int n, vector<pair<int, int>> graph[], int src, int dt)
 {
     vector<int> dist(n + 1, 1e9);
     priority_queue<pair<int, int>,
@@ -101,6 +101,39 @@ int dijkshtra(int n, vector<pair<int, int>> graph[], int src, int dt)
     return count;
 }
 
+int dijkshtra(int n, vector<pair<int,int>> graph[], int src,int dt) {
+
+    vector<int>dist(n, 1e9);
+    priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>>pq;
+    pq.push({src, 0});
+    dist[src]=0;
+
+    while(! pq.empty()) {
+        int currDist = pq.top().second;
+        int currNode = pq.top().first;
+
+        if (currDist > dist[currNode])continue;
+
+        for(auto &adj : graph[currNode]) {
+            int adjnode = adj.first;
+            int nextDist = adj.second;
+
+            if (currDist + nextDist < dist[adjnode]) {
+                dist[adjnode] = currDist + nextDist;
+                pq.push({adjnode, dist[adjnode]});
+            }
+        }
+    }
+    int c = 0;
+    for(int i=0;i<n;i++) {
+        if (dist[i]<=dt){
+            c++;
+        }
+    }
+
+    return c;
+}
+
 void f(int n, vector<vector<int>> &edges, int dt)
 {
     vector<pair<int, int>> graph[n + 1];
@@ -111,19 +144,32 @@ void f(int n, vector<vector<int>> &edges, int dt)
     }
 
     int mini = INT_MAX;
-    int node = -1;
     for (int i = 0; i < n; i++)
     {
         int count = dijkshtra(n, graph, i, dt);
 
-        if (count <= mini)
-        {
-            mini = count;
-            node = i;
-        }
+        mini = min(count, mini);
     }
 
-    cout << " Node : " << node << endl;
+    // cout << " Node : " << node << endl;
+}
+
+int findTheCity(int n, vector<vector<int>> &edges, int dt)
+{
+    vector<pair<int, int>> adj[n + 1];
+
+    for (auto &e : edges)
+    {
+        adj[e[0]].push_back({e[1], e[2]});
+    }
+
+    int mini = INT_MAX;
+    for(int i=0;i<n;i++) {
+        int count = dijkshtra(n, adj, i, dt);
+        mini = min(count, mini);
+
+    }
+
 }
 
 int main()

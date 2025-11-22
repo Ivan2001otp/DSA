@@ -36,33 +36,6 @@ bool isCycle(int v, vector<int> adj[])
 
 
 
-bool detect2(int node, int parent, vector<int>& vis, vector<int>adj[]) {
-    vis[node]=1;
-
-    for(auto a : adj[node]) {
-
-        if (!vis[a]) {
-            if (detect2(a, node, vis, adj))return true;
-            
-        } else if (node != parent) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
-bool isCycle2(int v , vector<int>adj[]) {
-    vector<int>vis(v, 0);
-
-    for(int i=0; i<v; i++) {
-        if (! vis[i]) {
-            if (detect2(i, -1, vis, adj)) return true;
-        }
-    }
-
-    return false;
-}
 int main()
 {
 
